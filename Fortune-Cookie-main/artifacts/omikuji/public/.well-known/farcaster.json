@@ -1,0 +1,14 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjMzMjIwOTMsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhCZWVhNTU5NmE5M2M1ZjVjODJDOEM0MDgxMzZCNTgyRmYyNURmMGEwIn0",
+    "payload": "eyJkb21haW4iOiJmb3J0dW5lLWNvb2tpZS1vbWlrdWppLnZlcmNlbC5hcHAifQ",
+    "signature": "0sXHyuFeZt099optfBPKXgrczsLRxHOL4PT/8XciOCx9GhCL8g3gYbtZN5wyTAGJL8hbiYubeLJev+ha9p0UyRs="
+  },
+  "frame": {
+    "version": "1",
+    "name": "おみくじ",
+    "iconUrl": "https://fortune-cookie-omikuji.vercel.app/omikuji_icon-3.png",
+    "homeUrl": "https://fortune-cookie-omikuji.vercel.app",
+    "splashBackgroundColor": "#1a0a2e"
+  }
+}
