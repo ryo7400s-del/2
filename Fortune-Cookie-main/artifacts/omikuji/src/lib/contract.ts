@@ -2,7 +2,7 @@ import { parseAbi } from "viem";
 
 export const CONTRACT_ADDRESS = "0xcD8DCA485401D1786c450B814940581bBdE280be" as const;
 
-export const PRICE = 2000000000000nn; // 0.00002 ether in wei
+export const PRICE = 2000000000000n; // 0.00002 ether in wei
 
 export const OMIKUJI_ABI = parseAbi([
   "function draw() external payable returns (string memory result)",
