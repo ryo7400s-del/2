@@ -113,7 +113,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎊
+        🎊
       </div>
       <div
         style={{
@@ -126,7 +126,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎉
+        🎉
       </div>
       <div
         style={{
@@ -139,7 +139,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎉
+        🎉
       </div>
     </div>
   );
@@ -497,7 +497,7 @@ export default function OmikujiPage() {
               textTransform: "uppercase",
             }}
           >
-            Blockchain Fortune ﾂｷ 0.000002 ETH
+            Blockchain Fortune . 0.000002 ETH
           </span>
         </div>
         <h1
