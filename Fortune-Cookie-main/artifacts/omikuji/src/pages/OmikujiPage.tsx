@@ -113,7 +113,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        至
+        🎊
       </div>
       <div
         style={{
@@ -126,7 +126,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        脂
+        🎉
       </div>
       <div
         style={{
@@ -139,7 +139,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        脂
+        🎉
       </div>
     </div>
   );
