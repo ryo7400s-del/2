@@ -187,10 +187,10 @@ function OmikujiBox({ phase }: { phase: Phase }) {
         <line x1="10" y1="90" x2="110" y2="90" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <line x1="10" y1="120" x2="110" y2="120" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <text x="60" y="100" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          蠕｡
+          おみ
         </text>
         <text x="60" y="125" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          邀､
+          くじ
         </text>
         {[46, 54, 62, 70, 74].map((x, i) => (
           <rect
@@ -250,7 +250,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
               textTransform: "uppercase",
             }}
           >
-            蠕｡逾樒ｱ､ ﾂｷ Omikuji
+            おみくじ Omikuji
           </span>
         </div>
         <div className="text-center" style={{ marginBottom: 8 }}>
