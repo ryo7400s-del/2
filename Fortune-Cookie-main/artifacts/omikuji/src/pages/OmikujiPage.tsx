@@ -511,7 +511,7 @@ export default function OmikujiPage() {
             textShadow: "0 0 40px rgba(201,169,90,0.4), 0 2px 4px rgba(0,0,0,0.8)",
           }}
         >
-          蠕｡逾樒ｱ､
+          おみくじ
         </h1>
         <p
           style={{
