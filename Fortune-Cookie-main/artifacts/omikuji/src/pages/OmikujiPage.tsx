@@ -645,4 +645,95 @@ export default function OmikujiPage() {
                   "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
                 transition: "all 0.2s",
                 width: "100%",
+                maxWidth: 320,
+              }}
+            >
+              {phase === "shaking" ? "Shaking the oracle..." : `Draw Fortune · ${priceEth} ETH`}
+            </button>
+
+            <p
+              style={{
+                fontSize: 11,
+                color: "rgba(245,230,200,0.35)",
+                fontFamily: "Noto Serif JP, serif",
+                textAlign: "center",
+              }}
+            >
+              Connected: {shortAddress}
+              <span
+                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
+                onClick={() => disconnect()}
+              >
+                disconnect
+              </span>
+            </p>
+          </div>
+        )}
+
+        {isDone && (
+          <div className="flex flex-col items-center gap-3 mt-2">
+            <button
+              onClick={handleReset}
+              style={{
+                padding: "12px 36px",
+                background: "transparent",
+                border: "1px solid rgba(245,230,200,0.25)",
+                borderRadius: 8,
+                color: "rgba(245,230,200,0.7)",
+                fontFamily: "Noto Serif JP, serif",
+                fontSize: 14,
+                letterSpacing: "0.1em",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+            >
+              Draw Again
+            </button>
+            <p style={{ fontSize: 11, color: "rgba(245,230,200,0.3)", fontFamily: "Noto Serif JP, serif" }}>
+              Connected: {shortAddress}
+              <span
+                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
+                onClick={() => disconnect()}
+              >
+                disconnect
+              </span>
+            </p>
+          </div>
+        )}
+
+        {phase === "idle" && isConnected && (
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            {Object.entries(FORTUNE_DATA).map(([key, val]) => (
+              <span
+                key={key}
+                style={{
+                  padding: "4px 12px",
+                  borderRadius: 20,
+                  border: `1px solid ${val.color}40`,
+                  color: val.color,
+                  fontSize: 12,
+                  fontFamily: "Noto Serif JP, serif",
+                }}
+              >
+                {val.kanji}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <p
+          style={{
+            fontSize: 10,
+            color: "rgba(245,230,200,0.2)",
+            fontFamily: "Noto Serif JP, serif",
+            textAlign: "center",
+            marginTop: 8,
+          }}
+        >
+          Contract · {CONTRACT_ADDRESS.slice(0, 10)}...{CONTRACT_ADDRESS.slice(-8)}
+        </p>
+      </div>
+    </div>
+  );
+}
   
