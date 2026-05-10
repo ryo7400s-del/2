@@ -32,6 +32,119 @@ interface Fortune {
 
 const SAKURA_COUNT = 18;
 
+// 闃ｱ轣ｫ繝代�繝�ぅ繧ｯ繝ｫ
+function Fireworks({ active }: { active: boolean }) {
+  if (!active) return null;
+  const particles = Array.from({ length: 60 }, (_, i) => {
+    const angle = (i / 60) * 360;
+    const distance = 80 + Math.random() * 120;
+    const x = Math.cos((angle * Math.PI) / 180) * distance;
+    const y = Math.sin((angle * Math.PI) / 180) * distance;
+    const colors = ["#FFD700", "#FF6B6B", "#4ECDC4", "#FF9F43", "#A29BFE", "#FD79A8", "#55EFC4"];
+    const color = colors[i % colors.length];
+    const size = 4 + Math.random() * 6;
+    const duration = 0.8 + Math.random() * 0.8;
+    const delay = Math.random() * 0.3;
+    return { x, y, color, size, duration, delay, angle };
+  });
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 9999,
+        overflow: "hidden",
+      }}
+    >
+      {[
+        { cx: "30%", cy: "30%" },
+        { cx: "50%", cy: "20%" },
+        { cx: "70%", cy: "30%" },
+        { cx: "20%", cy: "50%" },
+        { cx: "80%", cy: "50%" },
+        { cx: "50%", cy: "50%" },
+      ].map((pos, gi) =>
+        particles.slice(gi * 10, gi * 10 + 10).map((p, i) => (
+          <div
+            key={`${gi}-${i}`}
+            style={{
+              position: "absolute",
+              left: pos.cx,
+              top: pos.cy,
+              width: p.size,
+              height: p.size,
+              borderRadius: "50%",
+              backgroundColor: p.color,
+              transform: `translate(-50%, -50%)`,
+              animation: `firework-particle ${p.duration}s ease-out ${p.delay + gi * 0.1}s forwards`,
+              "--tx": `${p.x}px`,
+              "--ty": `${p.y}px`,
+            } as React.CSSProperties}
+          />
+        ))
+      )}
+      <style>{`
+        @keyframes firework-particle {
+          0% { transform: translate(-50%, -50%) translate(0, 0); opacity: 1; }
+          100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+        @keyframes kusudama {
+          0% { transform: scale(0) rotate(0deg); opacity: 0; }
+          30% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+          60% { transform: scale(1) rotate(-5deg); opacity: 1; }
+          100% { transform: scale(1.1) rotate(0deg); opacity: 0; }
+        }
+      `}</style>
+
+      {/* 縺上☆邇� */}
+      <div
+        style={{
+          position: "absolute",
+          top: "35%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "80px",
+          animation: "kusudama 2s ease-out 0.3s forwards",
+          opacity: 0,
+        }}
+      >
+        至
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          top: "35%",
+          left: "30%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "60px",
+          animation: "kusudama 2s ease-out 0.5s forwards",
+          opacity: 0,
+        }}
+      >
+        脂
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          top: "35%",
+          left: "70%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "60px",
+          animation: "kusudama 2s ease-out 0.7s forwards",
+          opacity: 0,
+        }}
+      >
+        脂
+      </div>
+    </div>
+  );
+}
+
 function SakuraPetal({ index }: { index: number }) {
   const style: React.CSSProperties = {
     position: "absolute",
@@ -74,10 +187,10 @@ function OmikujiBox({ phase }: { phase: Phase }) {
         <line x1="10" y1="90" x2="110" y2="90" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <line x1="10" y1="120" x2="110" y2="120" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <text x="60" y="100" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          おみ
+          蠕｡
         </text>
         <text x="60" y="125" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          くじ
+          邀､
         </text>
         {[46, 54, 62, 70, 74].map((x, i) => (
           <rect
@@ -137,7 +250,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
               textTransform: "uppercase",
             }}
           >
-            御神籤 Omikuji
+            蠕｡逾樒ｱ､ ﾂｷ Omikuji
           </span>
         </div>
         <div className="text-center" style={{ marginBottom: 8 }}>
@@ -203,7 +316,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
           </p>
         </div>
         <div className="text-center">
-          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>❋ ❋ ❋</span>
+          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>笶� 笶� 笶�</span>
         </div>
       </div>
       <div
@@ -230,6 +343,7 @@ export default function OmikujiPage() {
   const [fortune, setFortune] = useState<Fortune | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [showFireworks, setShowFireworks] = useState(false);
 
   const handleConnect = async () => {
     setPhase("connecting");
@@ -248,17 +362,20 @@ export default function OmikujiPage() {
 
   const handleDraw = async () => {
     if (!isConnected || !publicClient) return;
+
     if (chainId !== base.id) {
-  try {
-    await switchChain({ chainId: base.id });
-  } catch {
-    setError("Please switch to Base network.");
-    return;
-  }
+      try {
+        await switchChain({ chainId: base.id });
+      } catch {
+        setError("Please switch to Base network.");
+        return;
+      }
     }
+
     setError(null);
     setFortune(null);
     setTxHash(null);
+    setShowFireworks(false);
     setPhase("shaking");
 
     await new Promise((r) => setTimeout(r, 700));
@@ -304,6 +421,12 @@ export default function OmikujiPage() {
       setPhase("revealing");
       setFortune(f);
 
+      // 螟ｧ蜷峨�蝣ｴ蜷郁干轣ｫ繧定｡ｨ遉ｺ
+      if (resultStr === "Daikichi - Great Blessing") {
+        setShowFireworks(true);
+        setTimeout(() => setShowFireworks(false), 4000);
+      }
+
       await new Promise((r) => setTimeout(r, 200));
       setPhase("done");
     } catch (err: unknown) {
@@ -325,11 +448,12 @@ export default function OmikujiPage() {
     setFortune(null);
     setError(null);
     setTxHash(null);
+    setShowFireworks(false);
   };
 
   const priceEth = formatEther(PRICE);
   const shortAddress = address
-    ? `${address.slice(0, 6)}${address.slice(-4)}`
+    ? `${address.slice(0, 6)}...${address.slice(-4)}`
     : "";
 
   const isLoading = phase === "waiting";
@@ -343,6 +467,8 @@ export default function OmikujiPage() {
           "radial-gradient(ellipse 120% 80% at 50% 0%, #1e0a2e 0%, #0d0818 40%, #0a0613 100%)",
       }}
     >
+      <Fireworks active={showFireworks} />
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: SAKURA_COUNT }, (_, i) => (
           <SakuraPetal key={i} index={i} />
@@ -371,7 +497,7 @@ export default function OmikujiPage() {
               textTransform: "uppercase",
             }}
           >
-            Blockchain Fortune 0.00002 ETH
+            Blockchain Fortune ﾂｷ 0.000002 ETH
           </span>
         </div>
         <h1
@@ -385,7 +511,7 @@ export default function OmikujiPage() {
             textShadow: "0 0 40px rgba(201,169,90,0.4), 0 2px 4px rgba(0,0,0,0.8)",
           }}
         >
-          おみくじ
+          蠕｡逾樒ｱ､
         </h1>
         <p
           style={{
@@ -446,12 +572,12 @@ export default function OmikujiPage() {
                   color: "rgba(245,230,200,0.7)",
                 }}
               >
-                Consulting the oracle
+                Consulting the oracle...
               </span>
             </div>
             {txHash && (
               <p style={{ fontSize: 11, color: "rgba(245,230,200,0.3)", marginTop: 8, wordBreak: "break-all" }}>
-                tx: {txHash.slice(0, 20)}
+                tx: {txHash.slice(0, 20)}...
               </p>
             )}
           </div>
@@ -519,94 +645,4 @@ export default function OmikujiPage() {
                   "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
                 transition: "all 0.2s",
                 width: "100%",
-                maxWidth: 320,
-              }}
-            >
-              {phase === "shaking" ? "Shaking the oracle..." : `Draw Fortune · ${priceEth} ETH`}
-            </button>
-
-            <p
-              style={{
-                fontSize: 11,
-                color: "rgba(245,230,200,0.35)",
-                fontFamily: "Noto Serif JP, serif",
-                textAlign: "center",
-              }}
-            >
-              Connected: {shortAddress}
-              <span
-                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
-                onClick={() => disconnect()}
-              >
-                disconnect
-              </span>
-            </p>
-          </div>
-        )}
-
-        {isDone && (
-          <div className="flex flex-col items-center gap-3 mt-2">
-            <button
-              onClick={handleReset}
-              style={{
-                padding: "12px 36px",
-                background: "transparent",
-                border: "1px solid rgba(245,230,200,0.25)",
-                borderRadius: 8,
-                color: "rgba(245,230,200,0.7)",
-                fontFamily: "Noto Serif JP, serif",
-                fontSize: 14,
-                letterSpacing: "0.1em",
-                cursor: "pointer",
-                transition: "all 0.2s",
-              }}
-            >
-              Draw Again
-            </button>
-            <p style={{ fontSize: 11, color: "rgba(245,230,200,0.3)", fontFamily: "Noto Serif JP, serif" }}>
-              Connected: {shortAddress}
-              <span
-                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
-                onClick={() => disconnect()}
-              >
-                disconnect
-              </span>
-            </p>
-          </div>
-        )}
-
-        {phase === "idle" && isConnected && (
-          <div className="flex flex-wrap justify-center gap-2 mt-2">
-            {Object.entries(FORTUNE_DATA).map(([key, val]) => (
-              <span
-                key={key}
-                style={{
-                  padding: "4px 12px",
-                  borderRadius: 20,
-                  border: `1px solid ${val.color}40`,
-                  color: val.color,
-                  fontSize: 12,
-                  fontFamily: "Noto Serif JP, serif",
-                }}
-              >
-                {val.kanji}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <p
-          style={{
-            fontSize: 10,
-            color: "rgba(245,230,200,0.2)",
-            fontFamily: "Noto Serif JP, serif",
-            textAlign: "center",
-            marginTop: 8,
-          }}
-        >
-          Contract · {CONTRACT_ADDRESS.slice(0, 10)}{CONTRACT_ADDRESS.slice(-8)}
-        </p>
-      </div>
-    </div>
-  );
-  }
+  
