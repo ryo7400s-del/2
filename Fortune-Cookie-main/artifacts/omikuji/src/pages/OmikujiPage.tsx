@@ -346,13 +346,20 @@ export default function OmikujiPage() {
   const [showFireworks, setShowFireworks] = useState(false);
 
   const handleConnect = async () => {
-    setPhase("connecting");
-    try {
-      connect({ connector: injected() });
-    } catch {
-      setPhase("idle");
-    }
-  };
+  setPhase("connecting");
+
+  try {
+    await connectAsync({
+      connector: injected(),
+    });
+
+    setPhase("idle");
+  } catch (err) {
+    console.error(err);
+    setPhase("idle");
+    setError("Wallet connection failed.");
+  }
+};
 
   useEffect(() => {
     if (isConnected && phase === "connecting") {
