@@ -645,158 +645,121 @@ export default function OmikujiPage() {
                   "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
                 transition: "all 0.2s",
                 width: "100%",
-  }}
+           return (
+  <div
+    className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center"
+    style={{
+      background:
+        "radial-gradient(ellipse 120% 80% at 50% 0%, #1e0a2e 0%, #0d0818 40%, #0a0613 100%)",
+    }}
+  >
+    <Fireworks active={showFireworks} />
+
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {Array.from({ length: SAKURA_COUNT }, (_, i) => (
+        <SakuraPetal key={i} index={i} />
+      ))}
+    </div>
+
+    <div
+      className="absolute inset-0 pointer-events-none opacity-5"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(180,100,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(180,100,255,0.3) 1px, transparent 1px)",
+        backgroundSize: "60px 60px",
+      }}
+    />
+
+    <div className="relative z-10 text-center mb-6 px-4">
+      <h1
+        style={{
+          fontFamily: "Noto Serif JP, serif",
+          fontSize: "clamp(48px, 10vw, 72px)",
+          fontWeight: 900,
+          color: "#F5E6C8",
+        }}
+      >
+        おみくじ
+      </h1>
+    </div>
+
+    {/* ===== メインUI ===== */}
+    <div className="relative z-10 flex flex-col items-center gap-6 px-4 w-full max-w-md">
+
+      {!isDone && (
+        <OmikujiBox phase={phase} />
+      )}
+
+      {(phase === "revealing" || isDone) && fortune && (
+        <FortuneScroll fortune={fortune} visible={true} />
+      )}
+
+      {/* エラー */}
+      {error && (
+        <div style={{ color: "red" }}>{error}</div>
+      )}
+
+      {/* Connect */}
+      {!isConnected && phase !== "connecting" && (
+        <button onClick={handleConnect}>
+          Connect Wallet
+        </button>
+      )}
+
+      {/* Draw */}
+      {isConnected && !isDone && !isLoading && (
+        <div style={{ width: "100%" }}>
+          <button
+            onClick={handleDraw}
+            disabled={phase === "shaking"}
           >
-            Connect Wallet
+            {phase === "shaking"
+              ? "Shaking..."
+              : `Draw Fortune · ${priceEth} ETH`}
           </button>
-        )}
+        </div>
+      )}
 
-        {isConnected && !isDone && !isLoading && (
-          <div className="flex flex-col items-center gap-3" style={{ width: "100%" }}>
-            <button
-              onClick={handleDraw}
-              disabled={phase === "shaking"}
-              style={{
-                padding: "16px 48px",
-                background:
-                  phase === "shaking"
-                    ? "rgba(193,41,46,0.5)"
-                    : "linear-gradient(135deg, #C1292E 0%, #8B1A1A 100%)",
-                border: "1px solid rgba(255,100,100,0.3)",
-                borderRadius: 8,
-                color: "#F5E6C8",
-                fontFamily: "Noto Serif JP, serif",
-                fontSize: 17,
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                cursor: phase === "shaking" ? "not-allowed" : "pointer",
-                boxShadow:
-                  "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
-                transition: "all 0.2s",
-                width: "100%",
-                maxWidth: 320,
-              }}
-            >
-              {phase === "shaking" ? "Shaking the oracle..." : `Draw Fortune �ゑｽｷ ${priceEth} ETH`}
-            </button>
+      {/* 再挑戦 */}
+      {isDone && (
+        <button onClick={handleReset}>
+          Draw Again
+        </button>
+      )}
 
-            <p
-              style={{
-                fontSize: 11,
-                color: "rgba(245,230,200,0.35)",
-                fontFamily: "Noto Serif JP, serif",
-                textAlign: "center",
-              }}
-            >
-              Connected: {shortAddress}
-              <span
-                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
-                onClick={() => disconnect()}
-              >
-                disconnect
-              </span>
-            </p>
-          </div>
-        )}
+    </div>
 
-        {isDone && (
-          <div className="flex flex-col items-center gap-3 mt-2">
-            <button
-              onClick={handleReset}
-              style={{
-                padding: "12px 36px",
-                background: "transparent",
-                border: "1px solid rgba(245,230,200,0.25)",
-                borderRadius: 8,
-                color: "rgba(245,230,200,0.7)",
-                fontFamily: "Noto Serif JP, serif",
-                fontSize: 14,
-                letterSpacing: "0.1em",
-                cursor: "pointer",
-                transition: "all 0.2s",
-              }}
-            >
-              Draw Again
-            </button>
-            <p style={{ fontSize: 11, color: "rgba(245,230,200,0.3)", fontFamily: "Noto Serif JP, serif" }}>
-              Connected: {shortAddress}
-              <span
-                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
-                onClick={() => disconnect()}
-              >
-                disconnect
-              </span>
-            </p>
-          </div>
-        )}
+    {/* ===== NFTモーダル ===== */}
+    {showMintModal && (
+      <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
+        <div className="bg-[#2D1B4E] rounded-3xl p-10 text-center">
 
-        {phase === "idle" && isConnected && (
-          <div className="flex flex-wrap justify-center gap-2 mt-2">
-            {Object.entries(FORTUNE_DATA).map(([key, val]) => (
-              <span
-                key={key}
-                style={{
-                  padding: "4px 12px",
-                  borderRadius: 20,
-                  border: `1px solid ${val.color}40`,
-                  color: val.color,
-                  fontSize: 12,
-                  fontFamily: "Noto Serif JP, serif",
-                }}
-              >
-                {val.kanji}
-              </span>
-            ))}
-          </div>
-        )}
+          <div style={{ fontSize: 60 }}>🎉</div>
 
-        <p
-          style={{
-            fontSize: 10,
-            color: "rgba(245,230,200,0.2)",
-            fontFamily: "Noto Serif JP, serif",
-            textAlign: "center",
-            marginTop: 8,
-          }}
-        >
-          Contract �ゑｽｷ {CONTRACT_ADDRESS.slice(0, 10)}...{CONTRACT_ADDRESS.slice(-8)}
-        </p>
-                                                 {/* ==================== NFT郢晄ｺ佩ｦ郢晏現ﾎ皮ｹ晢ｽｼ郢敖郢晢ｽｫ ==================== */}
-        {showMintModal && (
-          <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
-            <div className="bg-gradient-to-br from-[#2D1B4E] to-[#1A0F2E] rounded-3xl p-10 max-w-sm w-full border border-[#C9A95A]/50 text-center shadow-2xl">
+          <h2 style={{ color: "#FFD700" }}>
+            大吉おめでとうございます！
+          </h2>
 
-              <div className="text-8xl mb-6">﨟櫁р</div>
+          <p style={{ color: "#E0C080" }}>
+            特別な御守NFTをミントできます
+          </p>
 
-              <h2 className="text-4xl font-bold text-[#FFD700] mb-3">
-                陞滂ｽｧ陷ｷ蟲ｨ笙郢ｧ竏壹堤ｸｺ�ｨ邵ｺ�ｽ��ｸｺ謔ｶ�樒ｸｺ�ｾ邵ｺ蜻ｻ�ｼ�ｽ
-              </h2>
+          <button
+            onClick={() => {
+              alert("NFTミント準備中");
+              setShowMintModal(false);
+            }}
+          >
+            NFTをミントする
+          </button>
 
-              <p className="text-[#E0C080] mb-10 text-lg">
-                霑夲ｽｹ陋ｻ�･邵ｺ�ｪ陟包ｽ｡陞ｳ�ｽNFT郢ｧ蛛ｵﾎ醍ｹ晢ｽｳ郢晏現縲堤ｸｺ髦ｪ竏ｪ邵ｺ�ｽ
-              </p>
+          <button onClick={() => setShowMintModal(false)}>
+            閉じる
+          </button>
 
-              <button
-                onClick={() => {
-                  alert("﨟櫁р NFT郢晄ｺ佩ｦ郢晏沺�ｩ貅ｯ�ｽ邵ｺ�ｯ霑ｴ�ｾ陜ｨ�ｨ雋�摩�呵叉�ｭ邵ｺ�ｧ邵ｺ蜻ｻ�ｼ�ｽ");
-                  setShowMintModal(false);
-                }}
-                className="w-full py-5 bg-gradient-to-r from-[#FFD700] to-[#FFAA00] text-black font-bold text-xl rounded-2xl mb-4 hover:scale-105 transition-all"
-              >
-                NFT郢ｧ蛛ｵﾎ醍ｹ晢ｽｳ郢晏現笘�ｹｧ�ｽ
-              </button>
-
-              <button
-                onClick={() => setShowMintModal(false)}
-                className="w-full py-4 text-gray-400 hover:text-white transition"
-              >
-                鬮｢蟲ｨﾂｧ郢ｧ�ｽ
-              </button>
-
-            </div>
-          </div>
-        )}
-
-             </div>
-    );
+        </div>
+      </div>
+    )}
+  </div>
+);
           
