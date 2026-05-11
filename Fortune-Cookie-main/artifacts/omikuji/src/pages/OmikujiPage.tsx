@@ -757,20 +757,25 @@ export default function OmikujiPage() {
                 setShowMintModal(false);
               }}
             >
-             NFTをミントする
+             NFTをミントする            
+            <button
+              onClick={() => {
+                alert("NFTミント準備中");
+                setShowMintModal(false);
+              }}
+            >
+              NFTをミントする
             </button>
 
             <button onClick={() => setShowMintModal(false)}>
               閉じる
             </button>
 
-        </div> 
-        </div> 
-    )}
+          </div>
+        </div>
+      )}
 
-  </div> {/* メインUI */}
-</div> {/* 画面全体 */}
-
-);
-}
-           
+    </div>
+  );
+        }
+          
