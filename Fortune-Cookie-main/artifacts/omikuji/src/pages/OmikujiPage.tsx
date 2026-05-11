@@ -737,45 +737,39 @@ export default function OmikujiPage() {
 
 
       {/* ===== NFTミントモーダル ===== */}
-      {showMintModal && (
-        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
-          <div className="bg-[#2D1B4E] rounded-3xl p-10 text-center">
+{showMintModal && (
+  <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
+    <div className="bg-[#2D1B4E] rounded-3xl p-10 text-center">
 
-            <div style={{ fontSize: 60 }}>🎉</div>
+      <div style={{ fontSize: 60 }}>🎉</div>
 
-            <h2 style={{ color: "#FFD700" }}>
-              大吉おめでとうございます！
-            </h2>
+      <h2 style={{ color: "#FFD700" }}>
+        大吉おめでとうございます！
+      </h2>
 
-            <p style={{ color: "#E0C080" }}>
-              特別な御守NFTをミントできます
-            </p>
+      <p style={{ color: "#E0C080" }}>
+        特別な御守NFTをミントできます
+      </p>
 
-            <button
-              onClick={() => {
-                alert("NFTミント準備中");
-                setShowMintModal(false);
-              }}
-            >
-             NFTをミントする            
-            <button
-              onClick={() => {
-                alert("NFTミント準備中");
-                setShowMintModal(false);
-              }}
-            >
-              NFTをミントする
-            </button>
+      <button
+        onClick={() => {
+          alert("NFTミント準備中");
+          setShowMintModal(false);
+        }}
+      >
+        NFTをミントする
+      </button>
 
-            <button onClick={() => setShowMintModal(false)}>
-              閉じる
-            </button>
-
-          </div>
-        </div>
-      )}
+      <button onClick={() => setShowMintModal(false)}>
+        閉じる
+      </button>
 
     </div>
-  );
+  </div>
+)}
+
+</div>
+
+);
         }
           
