@@ -764,10 +764,13 @@ export default function OmikujiPage() {
               閉じる
             </button>
 
-                    </div>  {/* モーダル中身 */}
-        </div>    {/* モーダル背景 */}
-      )}
-    </div>        {/* メインUI */}
-  </div>          {/* ★これが不足してる可能性大 */}
+        </div> 
+        </div> 
+    )}
+
+  </div> {/* メインUI */}
+</div> {/* 画面全体 */}
+
 );
+}
           
