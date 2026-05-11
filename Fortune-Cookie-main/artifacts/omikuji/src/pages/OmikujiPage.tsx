@@ -769,5 +769,5 @@ export default function OmikujiPage() {
       )}
     </div>
   );
-        }
+        
           
