@@ -421,11 +421,13 @@ export default function OmikujiPage() {
       setPhase("revealing");
       setFortune(f);
 
-      // 螟ｧ蜷峨�蝣ｴ蜷郁干轣ｫ繧定｡ｨ遉ｺ
+      // ====================== 大吉の特別処理 ======================
       if (resultStr === "Daikichi - Great Blessing") {
         setShowFireworks(true);
         setTimeout(() => setShowFireworks(false), 4000);
+        setShowMintModal(true);     // NFTミントモーダル表示
       }
+      // ===========================================================
 
       await new Promise((r) => setTimeout(r, 200));
       setPhase("done");
