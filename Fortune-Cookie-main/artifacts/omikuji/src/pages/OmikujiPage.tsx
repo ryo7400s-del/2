@@ -32,7 +32,7 @@ interface Fortune {
 
 const SAKURA_COUNT = 18;
 
-// 花火のアニメーション
+// 闃ｱ轣ｫ縺ｮ繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ
 function Fireworks({ active }: { active: boolean }) {
   if (!active) return null;
   const particles = Array.from({ length: 60 }, (_, i) => {
@@ -101,7 +101,7 @@ function Fireworks({ active }: { active: boolean }) {
         }
       `}</style>
 
-      {/* 縺上☆邇� */}
+      {/* 邵ｺ荳岩�驍�ｿｽ */}
       <div
         style={{
           position: "absolute",
@@ -113,7 +113,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎊
+        至
       </div>
       <div
         style={{
@@ -126,7 +126,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎉
+        脂
       </div>
       <div
         style={{
@@ -139,7 +139,7 @@ function Fireworks({ active }: { active: boolean }) {
           opacity: 0,
         }}
       >
-        🎉
+        脂
       </div>
     </div>
   );
@@ -187,10 +187,10 @@ function OmikujiBox({ phase }: { phase: Phase }) {
         <line x1="10" y1="90" x2="110" y2="90" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <line x1="10" y1="120" x2="110" y2="120" stroke="#8B3A3A" strokeWidth="0.5" opacity="0.5" />
         <text x="60" y="100" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          おみ
+          縺翫∩
         </text>
         <text x="60" y="125" textAnchor="middle" fill="#C9A95A" fontSize="22" fontFamily="Noto Serif JP, serif" fontWeight="700">
-          くじ
+          縺上§
         </text>
         {[46, 54, 62, 70, 74].map((x, i) => (
           <rect
@@ -250,7 +250,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
               textTransform: "uppercase",
             }}
           >
-            おみくじ Omikuji
+            縺翫∩縺上§ Omikuji
           </span>
         </div>
         <div className="text-center" style={{ marginBottom: 8 }}>
@@ -316,7 +316,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
           </p>
         </div>
         <div className="text-center">
-          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>🌸 🌸 🌸</span>
+          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>減 減 減</span>
         </div>
       </div>
       <div
@@ -343,8 +343,7 @@ export default function OmikujiPage() {
   const [fortune, setFortune] = useState<Fortune | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [showFireworks, setShowFireworks] = useState(false);
-  const [showMintModal, setShowMintModal] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);const [showMintModal, setShowMintModal] = useState(false);
 
   
     setPhase("connecting");
@@ -411,7 +410,7 @@ export default function OmikujiPage() {
 
       const data = FORTUNE_DATA[resultStr] ?? {
         japanese: resultStr,
-        kanji: "��",
+        kanji: "�ｽ�ｽ",
         color: "#FFD700",
         glow: "rgba(255,215,0,0.4)",
         description: resultStr,
@@ -422,11 +421,11 @@ export default function OmikujiPage() {
       setPhase("revealing");
       setFortune(f);
 
-      // ====================== 大吉の特別処理 ======================
+      // ====================== 螟ｧ蜷峨�迚ｹ蛻･蜃ｦ逅� ======================
       if (resultStr === "Daikichi - Great Blessing") {
         setShowFireworks(true);
         setTimeout(() => setShowFireworks(false), 4000);
-        setShowMintModal(true);     // NFTミントモーダル表示
+        setShowMintModal(true);     // NFT繝溘Φ繝医Δ繝ｼ繝繝ｫ陦ｨ遉ｺ
       }
       // ===========================================================
 
@@ -514,7 +513,7 @@ export default function OmikujiPage() {
             textShadow: "0 0 40px rgba(201,169,90,0.4), 0 2px 4px rgba(0,0,0,0.8)",
           }}
         >
-          おみくじ
+          縺翫∩縺上§
         </h1>
         <p
           style={{
@@ -644,4 +643,133 @@ export default function OmikujiPage() {
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 cursor: phase === "shaking" ? "not-allowed" : "pointer",
-                boxSha
+                boxShadow:
+                  "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
+                transition: "all 0.2s",
+                width: "100%",
+                maxWidth: 320,
+              }}
+            >
+              {phase === "shaking" ? "Shaking the oracle..." : `Draw Fortune ﾂｷ ${priceEth} ETH`}
+            </button>
+
+            <p
+              style={{
+                fontSize: 11,
+                color: "rgba(245,230,200,0.35)",
+                fontFamily: "Noto Serif JP, serif",
+                textAlign: "center",
+              }}
+            >
+              Connected: {shortAddress}
+              <span
+                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
+                onClick={() => disconnect()}
+              >
+                disconnect
+              </span>
+            </p>
+          </div>
+        )}
+
+        {isDone && (
+          <div className="flex flex-col items-center gap-3 mt-2">
+            <button
+              onClick={handleReset}
+              style={{
+                padding: "12px 36px",
+                background: "transparent",
+                border: "1px solid rgba(245,230,200,0.25)",
+                borderRadius: 8,
+                color: "rgba(245,230,200,0.7)",
+                fontFamily: "Noto Serif JP, serif",
+                fontSize: 14,
+                letterSpacing: "0.1em",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+            >
+              Draw Again
+            </button>
+            <p style={{ fontSize: 11, color: "rgba(245,230,200,0.3)", fontFamily: "Noto Serif JP, serif" }}>
+              Connected: {shortAddress}
+              <span
+                style={{ marginLeft: 8, color: "rgba(193,41,46,0.6)", cursor: "pointer" }}
+                onClick={() => disconnect()}
+              >
+                disconnect
+              </span>
+            </p>
+          </div>
+        )}
+
+        {phase === "idle" && isConnected && (
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            {Object.entries(FORTUNE_DATA).map(([key, val]) => (
+              <span
+                key={key}
+                style={{
+                  padding: "4px 12px",
+                  borderRadius: 20,
+                  border: `1px solid ${val.color}40`,
+                  color: val.color,
+                  fontSize: 12,
+                  fontFamily: "Noto Serif JP, serif",
+                }}
+              >
+                {val.kanji}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <p
+          style={{
+            fontSize: 10,
+            color: "rgba(245,230,200,0.2)",
+            fontFamily: "Noto Serif JP, serif",
+            textAlign: "center",
+            marginTop: 8,
+          }}
+        >
+          Contract ﾂｷ {CONTRACT_ADDRESS.slice(0, 10)}...{CONTRACT_ADDRESS.slice(-8)}
+        </p>
+                                                 {/* ==================== NFT繝溘Φ繝医Δ繝ｼ繝繝ｫ ==================== */}
+        {showMintModal && (
+          <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
+            <div className="bg-gradient-to-br from-[#2D1B4E] to-[#1A0F2E] rounded-3xl p-10 max-w-sm w-full border border-[#C9A95A]/50 text-center shadow-2xl">
+
+              <div className="text-8xl mb-6">脂</div>
+
+              <h2 className="text-4xl font-bold text-[#FFD700] mb-3">
+                螟ｧ蜷峨♀繧√〒縺ｨ縺�＃縺悶＞縺ｾ縺呻ｼ�
+              </h2>
+
+              <p className="text-[#E0C080] mb-10 text-lg">
+                迚ｹ蛻･縺ｪ蠕｡螳�NFT繧偵Α繝ｳ繝医〒縺阪∪縺�
+              </p>
+
+              <button
+                onClick={() => {
+                  alert("脂 NFT繝溘Φ繝域ｩ溯�縺ｯ迴ｾ蝨ｨ貅門ｙ荳ｭ縺ｧ縺呻ｼ�");
+                  setShowMintModal(false);
+                }}
+                className="w-full py-5 bg-gradient-to-r from-[#FFD700] to-[#FFAA00] text-black font-bold text-xl rounded-2xl mb-4 hover:scale-105 transition-all"
+              >
+                NFT繧偵Α繝ｳ繝医☆繧�
+              </button>
+
+              <button
+                onClick={() => setShowMintModal(false)}
+                className="w-full py-4 text-gray-400 hover:text-white transition"
+              >
+                髢峨§繧�
+              </button>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+    );
+      }
