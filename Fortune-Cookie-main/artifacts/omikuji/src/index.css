@@ -272,3 +272,79 @@
     @apply hidden;
   }
 }
+@keyframes sakuraFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes floatBox {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shakeBox {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(4deg);
+  }
+
+  75% {
+    transform: rotate(-4deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes unfurl {
+  0% {
+    transform: scaleY(0.2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.float-animation {
+  animation: floatBox 3s ease-in-out infinite;
+}
+
+.shake-animation {
+  animation: shakeBox 0.12s infinite;
+}
+
+.scroll-unfurl {
+  animation: unfurl 0.5s ease-out;
+  transform-origin: top;
+}
