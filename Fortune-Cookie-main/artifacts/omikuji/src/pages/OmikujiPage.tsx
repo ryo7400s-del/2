@@ -330,7 +330,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
   );
 }
 
-export default function OmikujiPage() {
+function OmikujiPage() {
   const { address, isConnected } = useAccount();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
