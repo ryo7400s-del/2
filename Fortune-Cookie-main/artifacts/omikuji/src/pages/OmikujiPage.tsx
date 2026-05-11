@@ -316,7 +316,7 @@ function FortuneScroll({ fortune, visible }: { fortune: Fortune | null; visible:
           </p>
         </div>
         <div className="text-center">
-          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>笶� 笶� 笶�</span>
+          <span style={{ color: "#C1292E", fontSize: 20, letterSpacing: "0.3em" }}>🌸 🌸 🌸</span>
         </div>
       </div>
       <div
