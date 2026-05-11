@@ -645,9 +645,10 @@ export default function OmikujiPage() {
                   "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
                 transition: "all 0.2s",
                 width: "100%",
-};
-return (
-  <div
+              };
+
+            return (
+            <div
     className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center"
     style={{
       background:
