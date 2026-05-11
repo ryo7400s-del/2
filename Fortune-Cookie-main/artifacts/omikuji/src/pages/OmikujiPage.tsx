@@ -579,4 +579,5 @@ export default function OmikujiPage() {
 );
 
           }
+export default OmikujiPage;
           
