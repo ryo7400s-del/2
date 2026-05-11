@@ -343,7 +343,8 @@ export default function OmikujiPage() {
   const [fortune, setFortune] = useState<Fortune | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [showFireworks, setShowFireworks] = useState(false);const [showMintModal, setShowMintModal] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);
+  const [showMintModal, setShowMintModal] = useState(false);
 
   
     setPhase("connecting");
