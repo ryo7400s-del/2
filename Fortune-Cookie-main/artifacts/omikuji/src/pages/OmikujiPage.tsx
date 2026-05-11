@@ -757,7 +757,7 @@ export default function OmikujiPage() {
                 setShowMintModal(false);
               }}
             >
-              NFTをミントする
+             NFTをミントする
             </button>
 
             <button onClick={() => setShowMintModal(false)}>
@@ -773,4 +773,4 @@ export default function OmikujiPage() {
 
 );
 }
-          
+           
