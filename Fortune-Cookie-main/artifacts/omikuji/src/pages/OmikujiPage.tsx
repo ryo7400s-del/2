@@ -32,7 +32,7 @@ interface Fortune {
 
 const SAKURA_COUNT = 18;
 
-// 闃ｱ轣ｫ繝代�繝�ぅ繧ｯ繝ｫ
+// 花火のアニメーション
 function Fireworks({ active }: { active: boolean }) {
   if (!active) return null;
   const particles = Array.from({ length: 60 }, (_, i) => {
