@@ -643,127 +643,131 @@ export default function OmikujiPage() {
                 cursor: phase === "shaking" ? "not-allowed" : "pointer",
                 boxShadow:
                   "0 4px 20px rgba(193,41,46,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
-                transition: "all 0.2s",
-                width: "100%",
-              };
-
-            return (
-            <div
-    className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center"
-    style={{
-      background:
-        "radial-gradient(ellipse 120% 80% at 50% 0%, #1e0a2e 0%, #0d0818 40%, #0a0613 100%)",
+                    transition: "all 0.2s",
+      width: "100%",
     }}
-  >
-    <Fireworks active={showFireworks} />
+  />
 
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: SAKURA_COUNT }, (_, i) => (
-        <SakuraPetal key={i} index={i} />
-      ))}
-    </div>
-
+  return (
     <div
-      className="absolute inset-0 pointer-events-none opacity-5"
+      className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(180,100,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(180,100,255,0.3) 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
+        background:
+          "radial-gradient(ellipse 120% 80% at 50% 0%, #1e0a2e 0%, #0d0818 40%, #0a0613 100%)",
       }}
-    />
+    >
+      <Fireworks active={showFireworks} />
 
-    <div className="relative z-10 text-center mb-6 px-4">
-      <h1
-        style={{
-          fontFamily: "Noto Serif JP, serif",
-          fontSize: "clamp(48px, 10vw, 72px)",
-          fontWeight: 900,
-          color: "#F5E6C8",
-        }}
-      >
-        おみくじ
-      </h1>
-    </div>
-
-    {/* ===== メインUI ===== */}
-    <div className="relative z-10 flex flex-col items-center gap-6 px-4 w-full max-w-md">
-
-      {!isDone && (
-        <OmikujiBox phase={phase} />
-      )}
-
-      {(phase === "revealing" || isDone) && fortune && (
-        <FortuneScroll fortune={fortune} visible={true} />
-      )}
-
-      {/* エラー */}
-      {error && (
-        <div style={{ color: "red" }}>{error}</div>
-      )}
-
-      {/* Connect */}
-      {!isConnected && phase !== "connecting" && (
-        <button onClick={handleConnect}>
-          Connect Wallet
-        </button>
-      )}
-
-      {/* Draw */}
-      {isConnected && !isDone && !isLoading && (
-        <div style={{ width: "100%" }}>
-          <button
-            onClick={handleDraw}
-            disabled={phase === "shaking"}
-          >
-            {phase === "shaking"
-              ? "Shaking..."
-              : `Draw Fortune · ${priceEth} ETH`}
-          </button>
-        </div>
-      )}
-
-      {/* 再挑戦 */}
-      {isDone && (
-        <button onClick={handleReset}>
-          Draw Again
-        </button>
-      )}
-
-    </div>
-
-    {/* ===== NFTモーダル ===== */}
-    {showMintModal && (
-      <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
-        <div className="bg-[#2D1B4E] rounded-3xl p-10 text-center">
-
-          <div style={{ fontSize: 60 }}>🎉</div>
-
-          <h2 style={{ color: "#FFD700" }}>
-            大吉おめでとうございます！
-          </h2>
-
-          <p style={{ color: "#E0C080" }}>
-            特別な御守NFTをミントできます
-          </p>
-
-          <button
-            onClick={() => {
-              alert("NFTミント準備中");
-              setShowMintModal(false);
-            }}
-          >
-            NFTをミントする
-          </button>
-
-          <button onClick={() => setShowMintModal(false)}>
-            閉じる
-          </button>
-
-        </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: SAKURA_COUNT }, (_, i) => (
+          <SakuraPetal key={i} index={i} />
+        ))}
       </div>
-    )}
 
-  </div>
-);
-           
-        
+      <div
+        className="absolute inset-0 pointer-events-none opacity-5"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(180,100,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(180,100,255,0.3) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="relative z-10 text-center mb-6 px-4">
+        <h1
+          style={{
+            fontFamily: "Noto Serif JP, serif",
+            fontSize: "clamp(48px, 10vw, 72px)",
+            fontWeight: 900,
+            color: "#F5E6C8",
+            lineHeight: 1,
+            letterSpacing: "0.05em",
+          }}
+        >
+          おみくじ
+        </h1>
+      </div>
+
+      {/* ===== メインUI ===== */}
+      <div className="relative z-10 flex flex-col items-center gap-6 px-4 w-full max-w-md">
+
+        {!isDone && (
+          <OmikujiBox phase={phase} />
+        )}
+
+        {(phase === "revealing" || isDone) && fortune && (
+          <FortuneScroll fortune={fortune} visible={true} />
+        )}
+
+        {/* エラー */}
+        {error && (
+          <div style={{ color: "red" }}>
+            {error}
+          </div>
+        )}
+
+        {/* Connect Wallet */}
+        {!isConnected && phase !== "connecting" && (
+          <button onClick={handleConnect}>
+            Connect Wallet
+          </button>
+        )}
+
+        {/* Draw */}
+        {isConnected && !isDone && !isLoading && (
+          <div style={{ width: "100%" }}>
+            <button
+              onClick={handleDraw}
+              disabled={phase === "shaking"}
+            >
+              {phase === "shaking"
+                ? "Shaking..."
+                : `Draw Fortune · ${priceEth} ETH`}
+            </button>
+          </div>
+        )}
+
+        {/* 再挑戦 */}
+        {isDone && (
+          <button onClick={handleReset}>
+            Draw Again
+          </button>
+        )}
+
+      </div>
+
+      {/* ===== NFTミントモーダル ===== */}
+      {showMintModal && (
+        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
+          <div className="bg-[#2D1B4E] rounded-3xl p-10 text-center">
+
+            <div style={{ fontSize: 60 }}>🎉</div>
+
+            <h2 style={{ color: "#FFD700" }}>
+              大吉おめでとうございます！
+            </h2>
+
+            <p style={{ color: "#E0C080" }}>
+              特別な御守NFTをミントできます
+            </p>
+
+            <button
+              onClick={() => {
+                alert("NFTミント準備中");
+                setShowMintModal(false);
+              }}
+            >
+              NFTをミントする
+            </button>
+
+            <button onClick={() => setShowMintModal(false)}>
+              閉じる
+            </button>
+
+          </div>
+        </div>
+      )}
+    </div>
+  );
+        }
+          
