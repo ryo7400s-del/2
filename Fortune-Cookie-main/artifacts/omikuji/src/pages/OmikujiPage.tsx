@@ -734,10 +734,11 @@ export default function OmikujiPage() {
         >
           Contract · {CONTRACT_ADDRESS.slice(0, 10)}...{CONTRACT_ADDRESS.slice(-8)}
         </p>
-                    {/* ==================== NFTミントモーダル ==================== */}
+                                   {/* ==================== NFTミントモーダル ==================== */}
       {showMintModal && (
         <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
           <div className="bg-gradient-to-br from-[#2D1B4E] to-[#1A0F2E] rounded-3xl p-10 max-w-sm w-full border border-[#C9A95A]/50 text-center shadow-2xl">
+            
             <div className="text-8xl mb-6">🎉</div>
             
             <h2 className="text-4xl font-bold text-[#FFD700] mb-3">
@@ -767,10 +768,6 @@ export default function OmikujiPage() {
         </div>
       )}
       {/* ======================================================== */}
-      </div>
     </div>
   );
-  
-  // ========================================================
-
-  
+      }
