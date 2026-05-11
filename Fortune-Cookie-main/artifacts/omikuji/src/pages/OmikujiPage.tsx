@@ -345,7 +345,7 @@ export default function OmikujiPage() {
   const [txHash, setTxHash] = useState<string | null>(null);
   const [showFireworks, setShowFireworks] = useState(false);const [showMintModal, setShowMintModal] = useState(false);
 
-  const [showMintModal, setShowMintModal] = useState(false);
+  
     setPhase("connecting");
     try {
       connect({ connector: injected() });
