@@ -734,44 +734,43 @@ export default function OmikujiPage() {
         >
           Contract · {CONTRACT_ADDRESS.slice(0, 10)}...{CONTRACT_ADDRESS.slice(-8)}
         </p>
+                    {/* ==================== NFTミントモーダル ==================== */}
+      {showMintModal && (
+        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
+          <div className="bg-gradient-to-br from-[#2D1B4E] to-[#1A0F2E] rounded-3xl p-10 max-w-sm w-full border border-[#C9A95A]/50 text-center shadow-2xl">
+            <div className="text-8xl mb-6">🎉</div>
+            
+            <h2 className="text-4xl font-bold text-[#FFD700] mb-3">
+              大吉おめでとうございます！
+            </h2>
+            <p className="text-[#E0C080] mb-10 text-lg">
+              特別な御守NFTをミントできます
+            </p>
+
+            <button
+              onClick={() => {
+                alert("🎉 NFTミント機能は現在準備中です！");
+                setShowMintModal(false);
+              }}
+              className="w-full py-5 bg-gradient-to-r from-[#FFD700] to-[#FFAA00] text-black font-bold text-xl rounded-2xl mb-4 hover:scale-105 transition-all"
+            >
+              NFTをミントする
+            </button>
+
+            <button
+              onClick={() => setShowMintModal(false)}
+              className="w-full py-4 text-gray-400 hover:text-white transition"
+            >
+              閉じる
+            </button>
+          </div>
+        </div>
+      )}
+      {/* ======================================================== */}
       </div>
     </div>
   );
-  // ==================== NFTミントモーダル ====================
-  if (showMintModal) {
-    return (
-      <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[10000] p-4">
-        <div className="bg-gradient-to-br from-[#2D1B4E] to-[#1A0F2E] rounded-3xl p-10 max-w-sm w-full border border-[#C9A95A]/50 text-center shadow-2xl">
-          
-          <div className="text-8xl mb-6">🎉</div>
-          
-          <h2 className="text-4xl font-bold text-[#FFD700] mb-3">
-            大吉おめでとうございます！
-          </h2>
-          <p className="text-[#E0C080] mb-10 text-lg">
-            特別な御守NFTをミントできます
-          </p>
-
-          <button
-            onClick={() => {
-              alert("🎉 NFTミント機能は現在準備中です！");
-              setShowMintModal(false);
-            }}
-            className="w-full py-5 bg-gradient-to-r from-[#FFD700] to-[#FFAA00] text-black font-bold text-xl rounded-2xl mb-4 hover:scale-105 transition-all"
-          >
-            NFTをミントする
-          </button>
-
-          <button
-            onClick={() => setShowMintModal(false)}
-            className="w-full py-4 text-gray-400 hover:text-white transition"
-          >
-            閉じる
-          </button>
-        </div>
-      </div>
-    );
-  }
+  
   // ========================================================
 
   
