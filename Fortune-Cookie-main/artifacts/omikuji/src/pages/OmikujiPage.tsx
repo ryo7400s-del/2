@@ -734,7 +734,7 @@ export default function OmikujiPage() {
           </button>
         )}
 
-      </div>
+
 
       {/* ===== NFTミントモーダル ===== */}
       {showMintModal && (
